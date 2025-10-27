@@ -59,23 +59,35 @@ node delF(node head){
 //     free(temp);
 //     return head;
 node temp = head;
-    head = head->next;  // move head to next
-    free(temp);         // free old head
+    head = head->next;  
+    free(temp);         
     return head;
     
     
 }
 
-node delE(node head,int count){
+node delE(node head){
     node temp = head;
 
-    for(int i=1;i<count-1;i++){
-    temp = temp->next; 
+    while(temp->next->next !=NULL){
+        temp = temp->next;
     }
     
     free(temp->next);
     temp->next =NULL;
     return head;
+}
+
+node delM(node head,int ind){
+    
+    node temp = head;
+    for(int i =1;i<ind-1;i++){
+        temp = temp->next;
+    }
+    
+    node del = temp->next;
+    temp->next = del->next;
+    free(del);
 }
 
 void display(node head){
@@ -88,7 +100,7 @@ void display(node head){
       
     }
      printf("count :%d\n",count);
-    head = delE(head,count);
+ 
 }
 
 int main() {
@@ -123,6 +135,8 @@ int main() {
     printf("%p next\n",head->next);
     end(head,89);
     middle(head,5,2256);
+    delE(head);
+    delM(head,2);
 //   head = delF(head);
     display(head);
     
